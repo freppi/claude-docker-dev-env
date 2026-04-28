@@ -14,6 +14,6 @@ services:
 
     volumes:
       - ./workspace:/workspace
-      - $ssh_auth_sock:/ssh-agent
+      - ${SSH_AUTH_SOCK}:/ssh-agent
 
     working_dir: /workspace
