@@ -1,0 +1,19 @@
+services:
+  claude:
+    build: .
+    image: claude-code
+    container_name: claude-dev
+
+    stdin_open: true
+    tty: true
+
+    environment:
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      REPO_URL: ${REPO_URL}
+      SSH_AUTH_SOCK: /ssh-agent
+
+    volumes:
+      - ./workspace:/workspace
+      - $ssh_auth_sock:/ssh-agent
+
+    working_dir: /workspace
