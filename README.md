@@ -56,6 +56,7 @@ Edit `.env`:
 ```env
 ANTHROPIC_API_KEY=your_api_key_here
 REPO_URL=git@github.com:your/repo.git
+BRANCH=your_branch (default is main)
 ```
 
 ### 3. Build and run
