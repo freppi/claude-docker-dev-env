@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "🚀 Starting Claude dev container..."
+echo "Starting Claude dev container..."
 
 mkdir -p /workspace/repo
 mkdir -p /workspace/specs
@@ -15,22 +15,22 @@ chmod 644 /root/.ssh/known_hosts
 # Clone repo
 if [ -n "$REPO_URL" ]; then
   if [ ! -d "/workspace/repo/.git" ]; then
-    echo "📦 Cloning repository..."
+    echo "Cloning repository..."
     git clone "$REPO_URL" /workspace/repo
   else
-    echo "✅ Repo already exists"
+    echo "Repo already exists"
   fi
 
   cd /workspace/repo
 
-  echo "🔄 Fetching latest..."
+  echo "Fetching latest..."
   git fetch --all
 
   # Detect default branch
   DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
   BRANCH=${BRANCH:-$DEFAULT_BRANCH}
 
-  echo "🌿 Using branch: $BRANCH"
+  echo "Using branch: $BRANCH"
 
   # Checkout properly
   if git show-ref --verify --quiet refs/heads/$BRANCH; then
