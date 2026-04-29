@@ -114,3 +114,6 @@ Then restart:
 docker compose down
 docker compose up -d
 ```
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
