@@ -7,9 +7,10 @@ services:
     stdin_open: true
     tty: true
 
+    env_file:
+      - .env
+
     environment:
-      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
-      REPO_URL: ${REPO_URL}
       SSH_AUTH_SOCK: /ssh-agent
 
     volumes:
