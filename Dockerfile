@@ -18,6 +18,7 @@ RUN wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod
 RUN apt-get update && apt-get install -y dotnet-sdk-8.0
 
 RUN npm install -g @anthropic-ai/claude-code
+RUN npm install -g @openai/codex
 
 WORKDIR /workspace
 

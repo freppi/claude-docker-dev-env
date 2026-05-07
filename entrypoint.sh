@@ -77,6 +77,16 @@ if [ -n "${REPO_URL:-}" ]; then
   git pull origin "$BRANCH" || true
 fi
 
+# Only set if variables exist (avoids overwriting intentionally unset configs)
+if [[ -n "${GIT_EMAIL:-}" ]]; then
+  git config --global user.email "$GIT_EMAIL"
+fi
+
+if [[ -n "${GIT_NAME:-}" ]]; then
+  git config --global user.name "$GIT_NAME"
+fi
+
+
 # --------------------------------------------------
 # Done
 # --------------------------------------------------
