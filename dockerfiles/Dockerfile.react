@@ -1,0 +1,26 @@
+FROM node:20-slim
+
+SHELL ["/bin/bash", "-c"]
+
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    wget \
+    nano \
+    unzip \
+    procps \
+    ca-certificates \
+    openssh-client \
+ && rm -rf /var/lib/apt/lists/*
+
+# Optional package managers
+RUN npm install -g pnpm
+
+# AI tooling
+RUN npm install -g --unsafe-perm \
+    @anthropic-ai/claude-code \
+    @openai/codex
+
+ENV NODE_ENV=development
+
+WORKDIR /workspace

@@ -1,0 +1,20 @@
+services:
+  claude:
+    build: .
+    image: claude-code
+    container_name: claude-dev
+
+    stdin_open: true
+    tty: true
+
+    env_file:
+      - .env
+
+    environment:
+      SSH_AUTH_SOCK: /ssh-agent
+
+    volumes:
+      - ./workspace:/workspace
+      - ${SSH_AUTH_SOCK}:/ssh-agent
+
+    working_dir: /workspace

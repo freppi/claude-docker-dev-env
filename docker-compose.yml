@@ -1,8 +1,11 @@
 services:
-  claude:
-    build: .
-    image: claude-code
-    container_name: claude-dev
+  react:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.react
+
+    image: react-runner
+    container_name: react-dev
 
     stdin_open: true
     tty: true
@@ -10,11 +13,42 @@ services:
     env_file:
       - .env
 
-    environment:
-      SSH_AUTH_SOCK: /ssh-agent
+    volumes:
+      - ./workspace:/workspace
+
+    working_dir: /workspace
+
+  dotnet:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.dotnet
+
+    image: dotnet-runner
+    container_name: dotnet-dev
+
+    stdin_open: true
+    tty: true
+
+    env_file:
+      - .env
 
     volumes:
       - ./workspace:/workspace
-      - ${SSH_AUTH_SOCK}:/ssh-agent
+
+    working_dir: /workspace
+
+  specs:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.spec
+
+    image: spec-builder
+    container_name: spec-builder
+
+    stdin_open: true
+    tty: true
+
+    volumes:
+      - ./workspace:/workspace
 
     working_dir: /workspace

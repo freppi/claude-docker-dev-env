@@ -8,6 +8,8 @@ REPO_DIR="$WORKSPACE_DIR/repo"
 SPECS_DIR="$WORKSPACE_DIR/specs"
 NOTES_DIR="$WORKSPACE_DIR/notes"
 
+
+
 mkdir -p "$REPO_DIR" "$SPECS_DIR" "$NOTES_DIR"
 mkdir -p /root/.ssh
 chmod 700 /root/.ssh
@@ -41,6 +43,11 @@ fi
 if [ -n "${REPO_URL:-}" ]; then
   if [ ! -d "$REPO_DIR/.git" ]; then
     echo "Cloning repository..."
+    echo "Testing SSH connection..."
+    ssh -T git@ssh.dev.azure.com || true
+
+    echo "Running git clone..."
+    GIT_SSH_COMMAND="ssh -v" git clone "$REPO_URL" "$REPO_DIR"
     git clone "$REPO_URL" "$REPO_DIR"
   else
     echo "Repository already exists"
@@ -86,6 +93,16 @@ if [[ -n "${GIT_NAME:-}" ]]; then
   git config --global user.name "$GIT_NAME"
 fi
 
+# --------------------------------------------------
+# Claude/Antrhopic Setup
+# --------------------------------------------------
+
+export ANTHROPIC_MODEL="$ANTHROPIC_MODEL"
+export ANTHROPIC_BASE_URL="$ANTHROPIC_BASE_URL"
+export ANTHROPIC_AUTH_TOKEN="$ANTHROPIC_AUTH_TOKEN"
+export ANTHROPIC_DEFAULT_SONNET_MODEL="$ANTHROPIC_DEFAULT_SONNET_MODEL"
+export ANTHROPIC_CUSTOM_HEADERS="$ANTHROPIC_CUSTOM_HEADERS"
+export CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS="$CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS"
 
 # --------------------------------------------------
 # Done
